@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import AdminForm from '@/components/AdminForm';
 import { getUserByEmail } from '@/lib/actions/user.actions';
-import console from 'console';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
