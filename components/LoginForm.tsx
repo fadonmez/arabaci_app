@@ -2,13 +2,24 @@
 import { authenticate } from '@/lib/actions/auth.actions';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { Button } from './ui/button';
 
 const LoginForm = () => {
   const [err, setErr] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleLogin = async (formData: any) => {
-    const data = await authenticate(formData);
-    if (data) {
-      setErr(data.error);
+    setIsSubmitting(true);
+
+    try {
+      const data = await authenticate(formData);
+      if (data) {
+        setErr(data.error);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
@@ -49,12 +60,13 @@ const LoginForm = () => {
           />
         </div>
 
-        <button
+        <Button
           type='submit'
-          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+          className='primary-gradient w-fit !text-light-900'
+          disabled={isSubmitting}
         >
-          Submit
-        </button>
+          {isSubmitting ? 'Yükleniyor' : 'Giriş Yap'}
+        </Button>
         <p className='text-red-500'>{err}</p>
         <span>
           Don't have a account ?{' '}
