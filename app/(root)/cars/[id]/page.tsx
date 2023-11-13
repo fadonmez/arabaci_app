@@ -19,7 +19,11 @@ const page = async ({ params }: any) => {
   return (
     <div className='flex items-center mt-auto flex-col'>
       <CarCard car={thisCar} />
-      <ReservationButton userEmail={userEmail} id={id} />
+      {thisCar.isReservated ? (
+        <Button disabled>Zaten rezerve edilmiş</Button>
+      ) : (
+        <ReservationButton userEmail={userEmail} id={id} />
+      )}
     </div>
   );
 };
