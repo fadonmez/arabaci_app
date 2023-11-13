@@ -15,6 +15,7 @@ interface IProps {
     color: string;
     price: number;
     imgUrl: string;
+    isReservated: boolean;
   };
   isAdmin?: boolean;
 }
@@ -46,9 +47,13 @@ const CarCard = ({ car, isAdmin }: IProps) => {
         </ul>
         <div className='flex items-center justify-between mt-3 bg-green-300 rounded-md p-4'>
           <h3>Fiyat : {formatNumber(car.price)} TL</h3>
-          <Link href={`/cars/${car._id}`}>
-            <Button>Satın Al</Button>
-          </Link>
+          {car.isReservated ? (
+            <Button disabled={car.isReservated}>Reserve</Button>
+          ) : (
+            <Link href={`/cars/${car._id}`}>
+              <Button>Satın Al</Button>
+            </Link>
+          )}
         </div>
       </div>
       {isAdmin && (

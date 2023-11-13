@@ -49,3 +49,27 @@ export async function deleteCar(_id: any) {
     throw error;
   }
 }
+
+export async function reserveCar(_id: any) {
+  try {
+    await connectToDatabase();
+    await Car.findByIdAndUpdate(_id, { isReservated: true });
+    console.log('car reservated');
+    revalidatePath('/');
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function cancelReservation(_id: any) {
+  try {
+    await connectToDatabase();
+    await Car.findByIdAndUpdate(_id, { isReservated: false });
+    console.log('car reservation cancelled');
+    revalidatePath('/');
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

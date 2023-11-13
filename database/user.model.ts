@@ -5,6 +5,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   isAdmin: boolean;
+  reservatedCars: Schema.Types.ObjectId[];
 }
 
 const UserSchema = new Schema(
@@ -13,6 +14,7 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String },
     isAdmin: { type: Boolean, default: false },
+    reservatedCars: [{ type: Schema.Types.ObjectId, ref: 'Car' }],
   },
   { timestamps: true }
 );
