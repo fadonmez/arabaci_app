@@ -16,7 +16,11 @@ const CarList = ({ cars, isAdmin }: IProps) => {
       {objectCars.length ? (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center justify-center gap-4 mt-4 '>
           {objectCars.map((car: any) => (
-            <CarCard key={car._id} car={car} isAdmin={isAdmin} />
+            <CarCard
+              key={car._id}
+              car={JSON.stringify(car)}
+              isAdmin={isAdmin}
+            />
             // <>
             //   <p>{car.brand}</p>
             //   <Image src={car.imgUrl} width={528} height={396} alt='car image' />

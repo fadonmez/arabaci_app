@@ -20,7 +20,8 @@ interface IProps {
   isAdmin?: boolean;
 }
 
-const CarCard = ({ car, isAdmin }: IProps) => {
+const CarCard = ({ car, isAdmin }: any) => {
+  car = JSON.parse(car);
   const handleClick = async () => {
     await deleteCar(car._id);
   };

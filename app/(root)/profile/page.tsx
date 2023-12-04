@@ -8,17 +8,6 @@ import {
 } from '@/lib/actions/user.actions';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 
 const Profile = async () => {
   const session = await auth();
@@ -28,8 +17,8 @@ const Profile = async () => {
     redirect('/sign-in');
   }
   return (
-    <div className='flex relative'>
-      <div className='flex flex-col gap-y-6 items-start text-start w-[200px] sticky left-0 top-0 h-screen'>
+    <div className='flex-1 flex relative flex-col lg:flex-row  '>
+      <div className='flex h-fit flex-col gap-y-6 items-center justify-center text-center lg:sticky left-0 top-0  w-full md:w-fit   '>
         <h3>Profil</h3>
         <p>İsim : {session.user?.name}</p>
         <p>Email : {session.user?.email}</p>
@@ -47,13 +36,13 @@ const Profile = async () => {
           </Button>
         </form>
       </div>
-      <div className='ml-6'>
-        <h3>Rezervasyonların</h3>
+      <div className='p-4'>
+        <h3 className='text-center text-4xl font-semibold'>Rezervasyonların</h3>
         {user.reservatedCars ? (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center justify-center gap-4 mt-4 '>
             {user.reservatedCars.map((car: any) => (
               <div key={car._id} className='flex flex-col'>
-                <CarCard key={car._id} car={car} />
+                <CarCard key={car._id} car={JSON.stringify(car)} />
                 <form
                   className='w-full'
                   action={async () => {

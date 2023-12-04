@@ -13,7 +13,7 @@ const Admin = async () => {
   const stringCars = JSON.stringify(result.cars);
 
   if (!session) {
-    redirect('/sign-in');
+    redirect('/');
   }
   const isAdmin = await getUserByEmail(session?.user?.email);
   if (!isAdmin.isAdmin) {

@@ -2,6 +2,7 @@
 import Car from '@/database/car.model';
 import { connectToDatabase } from '../mongoose';
 import { revalidatePath } from 'next/cache';
+import mongoose from 'mongoose';
 
 export async function getCars(params: any) {
   try {
@@ -11,6 +12,21 @@ export async function getCars(params: any) {
   } catch (error) {
     console.log(error);
     throw error;
+  }
+}
+
+export async function getCar({ _id }: { _id: any }) {
+  if (mongoose.Types.ObjectId.isValid(_id)) {
+    try {
+      connectToDatabase();
+      const car = await Car.findById(_id);
+      return { car };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  } else {
+    return { car: null };
   }
 }
 

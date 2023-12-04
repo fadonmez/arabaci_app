@@ -4,7 +4,7 @@ import React from 'react';
 
 const Welcome = () => {
   return (
-    <div className='flex flex-col h-screen  items-center justify-center '>
+    <div className='flex flex-col h-screen  items-center justify-center  '>
       <Navbar />
       <div className='h-full  w-full'>
         <div className='absolute bg-[url(https://images5.alphacoders.com/107/thumb-1920-1070089.jpg)] top-0 w-full h-full object-contain blur-sm'></div>

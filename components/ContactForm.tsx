@@ -5,20 +5,37 @@ import { createMessage } from '@/lib/actions/contact.actions';
 import { useToast } from '@/components/ui/use-toast';
 
 const ContactForm = ({ user }: any) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const [message, setMessage] = useState('');
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await createMessage({
-      name: user?.name,
-      email: user?.email,
-      message,
-    });
-    toast({
-      title: 'Message Send',
-      description: `Thank you for Message. ${user.name}`,
-    });
-    setMessage('');
+    setIsSubmitting(true);
+    if (message.length < 10) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Message must be include 10 character.',
+      });
+      setIsSubmitting(false);
+      return;
+    }
+    try {
+      await createMessage({
+        name: user?.name,
+        email: user?.email,
+        message,
+      });
+      toast({
+        title: 'Message Send',
+        description: `Thank you for Message. ${user.name}`,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setMessage('');
+      setIsSubmitting(false);
+    }
   };
   return (
     <section className='text-gray-600 body-font relative'>
@@ -59,9 +76,10 @@ const ContactForm = ({ user }: any) => {
           </div>
           <Button
             type='submit'
-            className='text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+            disabled={isSubmitting}
+            className='text-white disabled:bg-slate-500 bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg'
           >
-            Button
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </Button>
           <p className='text-xs text-gray-500 mt-3'>
             We'll contact you within 24 hours.
